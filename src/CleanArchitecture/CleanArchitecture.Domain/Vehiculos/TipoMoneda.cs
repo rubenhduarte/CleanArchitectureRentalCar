@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CleanArchitecture.Domain.Exceptions.Users;
 
 namespace CleanArchitecture.Domain.Vehiculos;
 
@@ -25,9 +21,7 @@ public record TipoMoneda
     public static TipoMoneda FromCodigo (string codigo)
     {
         return All.FirstOrDefault(c => c.Codigo == codigo) ??
-            throw new ApplicationException("El tipo de moneda es invalido");
+            throw new TipoDeMonedaException();
 
     }
-
-
 }

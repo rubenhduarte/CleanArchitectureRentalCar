@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Domain.Abstractions;
+namespace CleanArchitecture.Domain.Vehiculos;
 
-public abstract class DomainExceptions : Exception
-{
-}
+public record Patente(string Value);

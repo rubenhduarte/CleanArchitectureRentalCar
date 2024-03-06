@@ -10,7 +10,7 @@ public sealed class Vehiculo : Entity
     public Vehiculo(
         Guid id,
         Modelo? modelo,
-        Vin? vin,
+        Patente? patente,
         Direccion? direccion, 
         Moneda? precio,
         Moneda? mantenimiento,
@@ -21,7 +21,7 @@ public sealed class Vehiculo : Entity
     {
         
         Modelo = modelo;
-        Vin = vin;
+        Patente = patente;
         Direccion = direccion;
         Precio = precio;
         Mantenimiento = mantenimiento;
@@ -32,7 +32,7 @@ public sealed class Vehiculo : Entity
 
     public Modelo? Modelo { get; private set; }
     // Private Set = Solo es posible a nivel de la entidad modificar el valor de la propiedad
-    public Vin? Vin { get; private set; } // Like serial number
+    public Patente? Patente { get; private set; } 
     public Direccion? Direccion { get; private set; }
     public Moneda? Precio { get; private set; }
     public Moneda? Mantenimiento { get; private set; }

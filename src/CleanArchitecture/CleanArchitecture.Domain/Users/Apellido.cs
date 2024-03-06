@@ -1,4 +1,3 @@
 ﻿namespace CleanArchitecture.Domain.Users;
-
-public record Nombre
+public record Apellido
 (string Value);

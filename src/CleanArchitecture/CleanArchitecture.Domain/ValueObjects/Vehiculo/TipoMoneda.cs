@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Domain.Exceptions.Users;
 
-namespace CleanArchitecture.Domain.Vehiculos;
+namespace CleanArchitecture.Domain.ValueObjects.Vehiculo;
 
 public record TipoMoneda
 {
@@ -18,7 +18,7 @@ public record TipoMoneda
         Eur
     };
 
-    public static TipoMoneda FromCodigo (string codigo)
+    public static TipoMoneda FromCodigo(string codigo)
     {
         return All.FirstOrDefault(c => c.Codigo == codigo) ??
             throw new TipoDeMonedaException();

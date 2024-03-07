@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Folder Include="Exceptions\Vehiculos\" />
+    <Folder Include="Users\Events\" />
+    <Folder Include="Vehiculos\" />
   </ItemGroup>
 
   <ItemGroup>

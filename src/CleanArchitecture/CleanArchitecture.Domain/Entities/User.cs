@@ -1,16 +1,13 @@
 ﻿using CleanArchitecture.Domain.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CleanArchitecture.Domain.DomainEvents.User;
+using CleanArchitecture.Domain.ValueObjects.User;
 
-namespace CleanArchitecture.Domain.Users;
+namespace CleanArchitecture.Domain.Entities;
 
 public sealed class User : Entity
 {
     private User(
-        Guid id
+        Guid id,
         Nombre nombre,
         Apellido apellido,
         Email email
@@ -23,10 +20,11 @@ public sealed class User : Entity
     public static User Create(
         Nombre nombre,
         Apellido apellido,
-        Email? email)
+        Email email)
     { 
     
-        var user = new User(Guid.NewGuid(), nombre, apellido, email); 
+        var user = new User(Guid.NewGuid(), nombre, apellido, email);
+        user.RaiseDomainEvents(new UserCreatedDomainEvents(user.Id));
         return user;
     }
 

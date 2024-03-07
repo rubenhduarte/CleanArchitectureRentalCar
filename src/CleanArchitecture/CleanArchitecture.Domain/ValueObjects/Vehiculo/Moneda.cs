@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CleanArchitecture.Domain.Vehiculos;
+﻿namespace CleanArchitecture.Domain.ValueObjects.Vehiculo;
 
 public record Moneda
     (
-    decimal monto, 
+    decimal monto,
     TipoMoneda tipoMoneda
     )
 {
@@ -27,7 +21,7 @@ public record Moneda
     public static Moneda Zero() => new(0, TipoMoneda.None);
     public static Moneda Zero(TipoMoneda tipoMoneda) => new(0, tipoMoneda);
 
-    public bool isZero() => this  == Zero(tipoMoneda);
+    public bool isZero() => this == Zero(tipoMoneda);
 
 
 }

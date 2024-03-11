@@ -42,4 +42,15 @@ public sealed class Alquiler : Entity
     public DateTime? FechaCompletado { get; private set; }
     public DateTime? FechaCancelacion { get; private set; }
 
+    public static Alquiler Reservar(
+        Guid vehiculoId, 
+        Guid userId, 
+        DateRange duracion, 
+        DateTime fechaCreacion
+        )
+    { 
+    
+        
+    
+    }
 }

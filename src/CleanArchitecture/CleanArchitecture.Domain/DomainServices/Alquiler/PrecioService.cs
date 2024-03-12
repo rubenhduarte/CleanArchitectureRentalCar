@@ -27,29 +27,33 @@ public class PrecioService
                 Accesorio.Mapas => 0.01m,
                 _ => 0
             };
-
-            var accesorioCharges = Moneda.Zero(tipoMoneda);
-
-            if (percentageChange > 0)
-            {
-
-                accesorioCharges = new Moneda(
-                    precioPorPeriodo.monto * percentageChange,
-                    tipoMoneda
-                    );
-            }
-
-            var precioTotal = Moneda.Zero(tipoMoneda);
-            precioTotal += precioPorPeriodo;
-
-            if (!vehiculo!.Mantenimiento!.isZero())
-            {
-                precioTotal += vehiculo.Mantenimiento;
-            }
-
-            precioTotal += accesorioCharges;
-
         }
-        return new PrecioDetalle(precioPorPeriodo, vehiculo.Mantenimiento, accesorioCharges, precioTotal);
+
+        var accesorioCharges = Moneda.Zero(tipoMoneda);
+
+        if (percentageChange > 0)
+        {
+
+            accesorioCharges = new Moneda(
+                precioPorPeriodo.monto * percentageChange,
+                tipoMoneda
+                );
+        }
+
+        var precioTotal = Moneda.Zero(tipoMoneda);
+        precioTotal += precioPorPeriodo;
+
+        if (!vehiculo!.Mantenimiento!.isZero())
+        {
+            precioTotal += vehiculo.Mantenimiento;
+        }
+
+        precioTotal += accesorioCharges;
+        
+        return new PrecioDetalle(
+            precioPorPeriodo, 
+            vehiculo.Mantenimiento, 
+            accesorioCharges, 
+            precioTotal);
     }
 }

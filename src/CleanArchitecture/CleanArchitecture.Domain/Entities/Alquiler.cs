@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Domain.Abstractions;
+using CleanArchitecture.Domain.DomainEvents.Alquiler;
 using CleanArchitecture.Domain.ValueObjects.Alquiler;
 using CleanArchitecture.Domain.ValueObjects.Vehiculo;
 
@@ -14,7 +15,8 @@ public sealed class Alquiler : Entity
         Moneda accesorios,
         Moneda precioTotal,
         AlquilerStatus alquilerStatus, 
-        DateTime fechaCreacion
+        DateTime fechaCreacion,
+        DateRange duracion
         ) : base(id)
     {
         
@@ -26,6 +28,7 @@ public sealed class Alquiler : Entity
         Accesorios = accesorios;
         Status = alquilerStatus;
         FechaCreacion = fechaCreacion;
+        Duracion = duracion;
     }
 
     public Guid VehiculoId { get; private set; }
@@ -46,11 +49,21 @@ public sealed class Alquiler : Entity
         Guid vehiculoId, 
         Guid userId, 
         DateRange duracion, 
-        DateTime fechaCreacion
+        DateTime fechaCreacion, 
+        PrecioDetalle precioDetalle
         )
-    { 
-    
-        
-    
+    {
+
+        var alquiler = new Alquiler(Guid.NewGuid(),
+            vehiculoId, userId, precioDetalle.PrecioPorPeriodo,
+            precioDetalle.Mantenimiento,
+            precioDetalle.Accesorios,
+            precioDetalle.PrecioTotal, AlquilerStatus.Reservado,
+            fechaCreacion, duracion);
+
+        alquiler.RaiseDomainEvents(new AlquilerReservadoDomainEvent(alquiler.Id!));
+
+        return alquiler;
+
     }
 }

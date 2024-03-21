@@ -55,7 +55,13 @@ public sealed class Vehiculo : Entity
                                     precio, mantenimiento, fechaUltimoAlquiler, 
                                     accesorios);
 
-        vehiculo.RaiseDomainEvents(new VehiculolCreatedDomainEvents(vehiculo.Id));
+        vehiculo.RaiseDomainEvents(new VehiculolCreatedDomainEvents(vehiculo.Id!));
         return vehiculo;
     }
+
+    public void SetFechaUltimoAlquier(DateTime fechaUltimoAlquier) 
+    {
+        FechaUltimoAlquiler = fechaUltimoAlquier;
+    }
+
 }

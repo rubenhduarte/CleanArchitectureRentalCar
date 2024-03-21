@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Domain.Abstractions;
 using CleanArchitecture.Domain.DomainEvents.Alquiler;
+using CleanArchitecture.Domain.DomainServices.Alquiler;
 using CleanArchitecture.Domain.ValueObjects.Alquiler;
 using CleanArchitecture.Domain.ValueObjects.Vehiculo;
 
@@ -14,12 +15,12 @@ public sealed class Alquiler : Entity
         Moneda precioPorMantenimiento,
         Moneda accesorios,
         Moneda precioTotal,
-        AlquilerStatus alquilerStatus, 
+        AlquilerStatus alquilerStatus,
         DateTime fechaCreacion,
         DateRange duracion
         ) : base(id)
     {
-        
+
         VehiculoId = vehiculoId;
         UserId = userId;
         PrecioPorPeriodo = precioPorPeriodo;
@@ -46,24 +47,40 @@ public sealed class Alquiler : Entity
     public DateTime? FechaCancelacion { get; private set; }
 
     public static Alquiler Reservar(
-        Guid vehiculoId, 
+        Vehiculo vehiculo, 
         Guid userId, 
         DateRange duracion, 
         DateTime fechaCreacion, 
-        PrecioDetalle precioDetalle
+        PrecioService precioService
         )
     {
 
+        var precioDetalle = precioService.CalcularPrecio(
+            vehiculo, 
+            duracion
+            );
+
         var alquiler = new Alquiler(Guid.NewGuid(),
-            vehiculoId, userId, precioDetalle.PrecioPorPeriodo,
+            vehiculo.Id, userId, precioDetalle.PrecioPorPeriodo,
             precioDetalle.Mantenimiento,
             precioDetalle.Accesorios,
             precioDetalle.PrecioTotal, AlquilerStatus.Reservado,
             fechaCreacion, duracion);
 
         alquiler.RaiseDomainEvents(new AlquilerReservadoDomainEvent(alquiler.Id!));
+        vehiculo.SetFechaUltimoAlquier(fechaCreacion);
 
         return alquiler;
 
     }
+
+    public Result Confirmar(DateTime fechaActual)
+    {
+        if (Status != AlquilerStatus.Reservado) 
+        { 
+            // Disparar excepcion 
+        }
+        
+    }
+
 }
